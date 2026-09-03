@@ -16,8 +16,8 @@ class ServicoController extends Controller
         // Recupera todos os registros da tabela 'servicos'
         $dados = Servico::all();
 
-        // Retorna a view 'servico.list' enviando a variável $dados
-        return view('servico.list', [
+        // Ajuste do nome da view para refletir a estrutura real do projeto.
+        return view('servicos.list', [
             'dados' => $dados
         ]);
     }
@@ -27,8 +27,8 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        // Retorna a view 'servico.form' compartilhada (para criação)
-        return view('servico.form');
+        // O formulário de criação está dentro da pasta servicos.
+        return view('servicos.form');
     }
 
     /**
@@ -72,8 +72,8 @@ class ServicoController extends Controller
         // Localiza o serviço pelo ID ou retorna um erro 404
         $dado = Servico::findOrFail($id);
 
-        // Retorna a mesma view 'servico.form' enviando os dados para preenchimento
-        return view('servico.form', [
+        // Retorna a view de edição correta, seguindo a estrutura organizada em resources/views/servicos.
+        return view('servicos.form', [
             'dado' => $dado
         ]);
     }
@@ -140,7 +140,7 @@ class ServicoController extends Controller
             $dados = Servico::all();
         }
 
-        // Retorna a view de listagem exibindo os resultados
-        return view('servico.list', ['dados' => $dados]);
+        // A view de listagem foi ajustada para o nome do diretório do projeto.
+        return view('servicos.list', ['dados' => $dados]);
     }
 }

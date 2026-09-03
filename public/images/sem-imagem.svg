@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Sem imagem</title>
+  <rect width="240" height="240" fill="#e9ecef"/>
+  <circle cx="120" cy="90" r="42" fill="#adb5bd"/>
+  <path d="M45 210c8-42 35-64 75-64s67 22 75 64" fill="#adb5bd"/>
+</svg>

@@ -17,8 +17,9 @@ class ClienteController extends Controller
         // Busca todos os registros da tabela 'clientes'
         $dados = Cliente::all();
 
-        // Retorna a view 'cliente.list' passando a lista de clientes
-        return view('cliente.list', [
+        // A view real do projeto está em resources/views/clientes/list.blade.php
+        // por isso o nome da view deve corresponder à pasta correta do Blade.
+        return view('clientes.list', [
             'dados' => $dados
         ]);
     }
@@ -28,8 +29,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        // Retorna a view 'cliente.form' para exibição do formulário
-        return view('cliente.form');
+        // O formulário existe em resources/views/clientes/form.blade.php.
+        return view('clientes.form');
     }
 
     /**
@@ -89,8 +90,8 @@ class ClienteController extends Controller
         // Busca o cliente pelo ID (retorna erro caso não localize)
         $dado = Cliente::findOrFail($id);
 
-        // Retorna a mesma view 'cliente.form' com os dados carregados
-        return view('cliente.form', [
+        // Retorna a mesma view do formulário, agora acessando o arquivo correto da pasta clientes.
+        return view('clientes.form', [
             'dado' => $dado,
         ]);
     }
@@ -178,7 +179,7 @@ class ClienteController extends Controller
             $dados = Cliente::all();
         }
 
-        // Retorna a view de listagem com os dados filtrados
-        return view('cliente.list', ['dados' => $dados]);
+        // A view de listagem foi ajustada para seguir a organização da pasta resources/views/clientes.
+        return view('clientes.list', ['dados' => $dados]);
     }
 }

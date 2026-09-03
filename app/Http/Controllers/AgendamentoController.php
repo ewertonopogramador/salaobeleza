@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 // Importação das Models necessárias para o controller
 use App\Models\Agendamento;
 use App\Models\Servico;
-use App\Models\Cliente; // Substituído 'Secretaria' por 'Cliente' para o contexto do Salão
+use App\Models\Cliente; 
 use Illuminate\Http\Request;
 
 class AgendamentoController extends Controller

@@ -2,43 +2,28 @@
 
 namespace App\Http\Controllers;
 
-// Importação dos modelos e recursos necessários
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
-    /**
-     * Exibe a listagem de clientes cadastrados.
-     */
     public function index()
     {
-        // Busca todos os registros da tabela 'clientes'
         $dados = Cliente::all();
 
-        // A view real do projeto está em resources/views/clientes/list.blade.php
-        // por isso o nome da view deve corresponder à pasta correta do Blade.
         return view('clientes.list', [
-            'dados' => $dados
+            'dados' => $dados,
         ]);
     }
 
-    /**
-     * Exibe o formulário de cadastro de novo cliente.
-     */
     public function create()
     {
-        // O formulário existe em resources/views/clientes/form.blade.php.
         return view('clientes.form');
     }
 
-    /**
-     * Salva um novo cliente no banco de dados e processa o upload de foto.
-     */
     public function store(Request $request)
     {
-        // Validação dos dados enviados pelo formulário
         $request->validate(
             [
                 'nome'     => 'required|max:130|min:3',
@@ -61,47 +46,31 @@ class ClienteController extends Controller
 
         $data = $request->all();
 
-        // Tratamento para upload de arquivo/imagem de foto de perfil do cliente
         $imagem = $request->file('imagem');
         if ($imagem) {
-            // Gera um nome único baseado na data/hora
             $nome_arquivo = date('YmdHis') . '.' . $imagem->getClientOriginalExtension();
             $diretorio = 'imagem/cliente/';
 
-            // Salva a imagem no disco 'public'
             $imagem->storeAs($diretorio, $nome_arquivo, 'public');
-
-            // Armazena o caminho relativo no array de dados para salvar no BD
             $data['imagem'] = $diretorio . $nome_arquivo;
         }
 
-        // Cria o registro no banco via Eloquent
         Cliente::create($data);
 
-        // Redireciona de volta para a tela de listagem de clientes
         return redirect('cliente');
     }
 
-    /**
-     * Exibe o formulário preenchido para edição de um cliente.
-     */
     public function edit($id)
     {
-        // Busca o cliente pelo ID (retorna erro caso não localize)
         $dado = Cliente::findOrFail($id);
 
-        // Retorna a mesma view do formulário, agora acessando o arquivo correto da pasta clientes.
         return view('clientes.form', [
             'dado' => $dado,
         ]);
     }
 
-    /**
-     * Atualiza os dados de um cliente existente no banco de dados.
-     */
     public function update(Request $request, $id)
     {
-        // Aplica as mesmas validações do cadastro
         $request->validate(
             [
                 'nome'     => 'required|max:130|min:3',
@@ -124,7 +93,6 @@ class ClienteController extends Controller
 
         $data = $request->all();
 
-        // Se uma nova foto for enviada na edição, atualiza a imagem no storage
         $imagem = $request->file('imagem');
         if ($imagem) {
             $nome_arquivo = date('YmdHis') . '.' . $imagem->getClientOriginalExtension();
@@ -134,7 +102,6 @@ class ClienteController extends Controller
             $data['imagem'] = $diretorio . $nome_arquivo;
         }
 
-        // Atualiza os dados no banco usando o ID fornecido
         Cliente::updateOrCreate(
             ['id' => $id],
             $data
@@ -143,43 +110,31 @@ class ClienteController extends Controller
         return redirect('cliente');
     }
 
-    /**
-     * Remove o cliente do banco e apaga sua imagem física no servidor.
-     */
     public function destroy($id)
     {
-        // Localiza o cliente no banco de dados
         $cliente = Cliente::findOrFail($id);
 
-        // Se existir um caminho de imagem e o arquivo físico estiver armazenado, remove do disco
         if ($cliente->imagem && Storage::disk('public')->exists($cliente->imagem)) {
             Storage::disk('public')->delete($cliente->imagem);
         }
 
-        // Deleta o registro da tabela
         $cliente->delete();
 
         return redirect('cliente');
     }
 
-    /**
-     * Realiza a busca/filtragem de clientes na tabela de listagem.
-     */
     public function search(Request $request)
     {
-        // Se houver um valor preenchido no campo de busca
         if (!empty($request->valor)) {
             $dados = Cliente::where(
-                $request->tipo, // ex: 'nome', 'cpf' ou 'telefone'
+                $request->tipo,
                 'like',
                 '%' . $request->valor . '%'
             )->get();
         } else {
-            // Caso a busca venha vazia, retorna todos os registros
             $dados = Cliente::all();
         }
 
-        // A view de listagem foi ajustada para seguir a organização da pasta resources/views/clientes.
         return view('clientes.list', ['dados' => $dados]);
     }
 }

@@ -1,15 +1,12 @@
-{{-- Herda a estrutura do layout base do projeto --}}
 @extends('base')
 
-{{-- Define o título da aba do navegador --}}
 @section('titulo', 'Formulário Serviço')
 
-{{-- Bloco principal de conteúdo --}}
 @section('conteudo')
-    {{-- Título dinâmico: altera entre 'Editar' e 'Novo' dependendo da existência da variável --}}
+    {{-- Título dinâmico altera entre 'Editar' e 'Novo' dependendo da existência da variável --}}
     <h1 class="mb-4">{{ isset($dado) ? 'Editar Serviço' : 'Novo Serviço' }}</h1>
 
-    {{-- Bloco de exibição dos erros de validação --}}
+   
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -20,13 +17,10 @@
         </div>
     @endif
 
-    {{-- Formulário com envio dinâmico para salvar (POST) ou atualizar (PUT) --}}
     <form action="{{ isset($dado) ? url("servico/$dado->id") : url('servico') }}" method="POST">
         
-        {{-- Token de segurança obrigatório do Laravel contra ataques CSRF --}}
         @csrf
 
-        {{-- Em caso de edição, adiciona a diretiva PUT para o formulário --}}
         @if (isset($dado))
             @method('PUT')
         @endif

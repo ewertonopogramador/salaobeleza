@@ -1,10 +1,7 @@
-{{-- Herda a estrutura do layout base do projeto --}}
 @extends('base')
 
-{{-- Define o título da aba do navegador --}}
 @section('titulo', 'Listagem de Serviços')
 
-{{-- Bloco principal de conteúdo --}}
 @section('conteudo')
     <div class="container mt-4">
         <h1 class="mb-4">Lista de Serviços</h1>

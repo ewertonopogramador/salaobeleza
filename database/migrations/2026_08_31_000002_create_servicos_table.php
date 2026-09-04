@@ -8,7 +8,7 @@ return new class extends Migration
 {
     /**
      * Cria a tabela de serviços do salão.
-     * Ela será usada para armazenar os serviços disponibilizados pelo estabelecimento.
+     * armazenar os serviços disponibilizados pelo estabelecimento.
      */
     public function up(): void
     {
@@ -21,9 +21,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Remove a tabela caso a migration seja revertida.
-     */
+   
     public function down(): void
     {
         Schema::dropIfExists('servicos');

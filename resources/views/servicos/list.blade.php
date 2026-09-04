@@ -1,4 +1,3 @@
-{{-- Herda a estrutura base do projeto. --}}
 @extends('base')
 
 @section('titulo', 'Listagem de Serviços')

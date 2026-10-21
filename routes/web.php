@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ServicoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdutoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/agendamento/{id}', [AgendamentoController::class, 'update'])->name('agendamento.update');
     Route::delete('/agendamento/{id}', [AgendamentoController::class, 'destroy'])->name('agendamento.destroy');
     Route::get('/agendamento/search', [AgendamentoController::class, 'search'])->name('agendamento.search');
+
+    Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
+    Route::get('/produto/create', [ProdutoController::class, 'create'])->name('produto.create');
+    Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');
+    Route::get('/produto/{id}/edit', [ProdutoController::class, 'edit'])->name('produto.edit');
+    Route::put('/produto/{id}', [ProdutoController::class, 'update'])->name('produto.update');
+    Route::delete('/produto/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
+    Route::post('/produto/search', [ProdutoController::class, 'search'])->name('produto.search');
+
 });

@@ -33,6 +33,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('produto') }}">Produtos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('profissional') }}">Profissionais</a>
+                    </li>
                 </ul>
                 @auth
                 <span class="navbar-text me-3">{{ auth()->user()->name }}</span>

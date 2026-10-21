@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ServicoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\ProfissionalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,5 +66,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/produto/{id}', [ProdutoController::class, 'update'])->name('produto.update');
     Route::delete('/produto/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
     Route::post('/produto/search', [ProdutoController::class, 'search'])->name('produto.search');
+
+    Route::get('/profissional', [ProfissionalController::class, 'index'])->name('profissional.index');
+    Route::get('/profissional/create', [ProfissionalController::class, 'create'])->name('profissional.create');
+    Route::post('/profissional', [ProfissionalController::class, 'store'])->name('profissional.store');
+    Route::get('/profissional/{id}/edit', [ProfissionalController::class, 'edit'])->name('profissional.edit');
+    Route::put('/profissional/{id}', [ProfissionalController::class, 'update'])->name('profissional.update');
+    Route::delete('/profissional/{id}', [ProfissionalController::class, 'destroy'])->name('profissional.destroy');
+    Route::post('/profissional/search', [ProfissionalController::class, 'search'])->name('profissional.search');
 
 });

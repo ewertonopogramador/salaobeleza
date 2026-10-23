@@ -48,6 +48,20 @@
                 value="{{ old('telefone', $dado->telefone ?? '') }}" required>
         </div>
 
+        {{-- Campo para entrada do Endereço do Cliente --}}
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Endereço</label>
+            <input type="text" name="endereco" class="form-control" maxlength="255"
+                value="{{ old('endereco', $dado->endereco ?? '') }}" required>
+        </div>
+
+        {{-- Campo para entrada do E-mail do Cliente (type="email" já valida o formato no navegador) --}}
+        <div class="col-md-6 mb-3">
+            <label class="form-label">E-mail</label>
+            <input type="email" name="email" class="form-control" maxlength="150"
+                value="{{ old('email', $dado->email ?? '') }}" required>
+        </div>
+
         {{-- Bloco para carregamento e exibição da Foto do Cliente --}}
         <div class="col-md-6 mb-3">
             <label class="form-label">Foto do Cliente</label>

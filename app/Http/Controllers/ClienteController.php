@@ -30,6 +30,8 @@ class ClienteController extends Controller
                 'nome'     => 'required|max:130|min:3',
                 'cpf'      => 'required|max:14',
                 'telefone' => 'required|max:20',
+                'endereco' => 'required|max:255',
+                'email'    => 'required|email|max:150',
                 'imagem'   => 'nullable|image|mimes:png,jpeg,jpg',
             ],
             [
@@ -40,6 +42,11 @@ class ClienteController extends Controller
                 'cpf.max'           => 'O máximo de caracteres para o CPF é 14.',
                 'telefone.required' => 'O telefone é obrigatório.',
                 'telefone.max'      => 'O máximo de caracteres para o telefone é 20.',
+                'endereco.required' => 'O endereço é obrigatório.',
+                'endereco.max'      => 'O máximo de caracteres para o endereço é 255.',
+                'email.required'    => 'O e-mail é obrigatório.',
+                'email.email'       => 'Informe um e-mail válido.',
+                'email.max'         => 'O máximo de caracteres para o e-mail é 150.',
                 'imagem.image'      => 'Deve ser enviado um arquivo de imagem válido.',
                 'imagem.mimes'      => 'A imagem deve ser da extensão PNG, JPEG ou JPG.',
             ]

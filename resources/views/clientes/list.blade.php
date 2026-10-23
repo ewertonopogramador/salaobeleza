@@ -20,6 +20,8 @@
                     <option value="nome">Nome</option>
                     <option value="cpf">CPF</option>
                     <option value="telefone">Telefone</option>
+                    <option value="endereco">Endereço</option>
+                    <option value="email">E-mail</option>
                 </select>
             </div>
 
@@ -48,6 +50,8 @@
                 <th scope="col">Nome</th>
                 <th scope="col">CPF</th>
                 <th scope="col">Telefone</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">E-mail</th>
                 <th scope="col" text-center>Ações</th>
             </tr>
         </thead>
@@ -71,6 +75,8 @@
                 <td>{{ $item->nome }}</td>
                 <td>{{ $item->cpf }}</td>
                 <td>{{ $item->telefone }}</td>
+                <td>{{ $item->endereco ?? '-' }}</td>
+                <td>{{ $item->email ?? '-' }}</td>
 
                 {{-- Coluna unificada para as Ações (Editar e Deletar) --}}
                 <td>
@@ -92,7 +98,7 @@
             @empty
             {{-- Exibido caso não haja nenhum cliente cadastrado ou encontrado na busca --}}
             <tr>
-                <td colspan="6" class="text-center">Nenhum cliente encontrado.</td>
+                <td colspan="8" class="text-center">Nenhum cliente encontrado.</td>
             </tr>
             @endforelse
         </tbody>

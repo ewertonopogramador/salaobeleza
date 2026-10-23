@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/cliente/search', [ClienteController::class, 'search'])->name('cliente.search');
 
     Route::get('/servico', [ServicoController::class, 'index'])->name('servico.index');
+    // Relatório em PDF. Fica antes das rotas com {id} para o Laravel não confundir
+    // "report" com um id.
+    Route::get('/servico/report', [ServicoController::class, 'report'])->name('servico.report');
     Route::get('/servico/create', [ServicoController::class, 'create'])->name('servico.create');
     Route::post('/servico', [ServicoController::class, 'store'])->name('servico.store');
     Route::get('/servico/{id}/edit', [ServicoController::class, 'edit'])->name('servico.edit');
@@ -52,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/servico/search', [ServicoController::class, 'search'])->name('servico.search');
 
     Route::get('/agendamento', [AgendamentoController::class, 'index'])->name('agendamento.index');
+    Route::get('/agendamento/chart', [AgendamentoController::class, 'chart'])->name('agendamento.chart');
+    Route::get('/agendamento/report', [AgendamentoController::class, 'report'])->name('agendamento.report');
     Route::get('/agendamento/create', [AgendamentoController::class, 'create'])->name('agendamento.create');
     Route::post('/agendamento', [AgendamentoController::class, 'store'])->name('agendamento.store');
     Route::get('/agendamento/{id}/edit', [AgendamentoController::class, 'edit'])->name('agendamento.edit');
@@ -59,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/agendamento/{id}', [AgendamentoController::class, 'destroy'])->name('agendamento.destroy');
     Route::get('/agendamento/search', [AgendamentoController::class, 'search'])->name('agendamento.search');
 
+    // Gráfico de barras (antes das rotas com {id}).
+    Route::get('/produto/chart', [ProdutoController::class, 'chart'])->name('produto.chart');
     Route::get('/produto', [ProdutoController::class, 'index'])->name('produto.index');
     Route::get('/produto/create', [ProdutoController::class, 'create'])->name('produto.create');
     Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');

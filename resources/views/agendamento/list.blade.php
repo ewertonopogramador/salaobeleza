@@ -6,6 +6,10 @@
         
         <!-- Botão para criar novo agendamento -->
         <a href="{{ url('agendamento/create') }}" class="btn btn-primary mb-3">Criar Novo Agendamento</a>
+        {{-- Botão do relatório em PDF; target="_blank" abre o PDF em uma nova aba --}}
+        <a href="{{ route('agendamento.report') }}" target="_blank" class="btn btn-outline-danger mb-3">Gerar PDF</a>
+        {{-- Botão que abre o gráfico de pizza de agendamentos por serviço --}}
+        <a href="{{ route('agendamento.chart') }}" class="btn btn-outline-info mb-3">Gráfico</a>
 
         <!-- Formulário de busca -->
         <form action="{{ url('agendamento/search') }}" method="GET" class="mb-3">

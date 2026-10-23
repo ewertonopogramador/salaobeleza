@@ -22,7 +22,8 @@ class ClienteController extends Controller
         return view('clientes.form');
     }
 
-    public function store(Request $request)
+    // Validação única, usada tanto no store() quanto no update() (evita código repetido).
+    public function validateForm(Request $request)
     {
         $request->validate(
             [
@@ -43,6 +44,11 @@ class ClienteController extends Controller
                 'imagem.mimes'      => 'A imagem deve ser da extensão PNG, JPEG ou JPG.',
             ]
         );
+    }
+
+    public function store(Request $request)
+    {
+        $this->validateForm($request);
 
         $data = $request->all();
 
@@ -57,7 +63,7 @@ class ClienteController extends Controller
 
         Cliente::create($data);
 
-        return redirect('cliente');
+        return redirect('cliente')->with('success', 'Registro salvo com sucesso!');
     }
 
     public function edit($id)
@@ -71,30 +77,19 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate(
-            [
-                'nome'     => 'required|max:130|min:3',
-                'cpf'      => 'required|max:14',
-                'telefone' => 'required|max:20',
-                'imagem'   => 'nullable|image|mimes:png,jpeg,jpg',
-            ],
-            [
-                'nome.required'     => 'O campo nome é obrigatório.',
-                'nome.max'          => 'O máximo de caracteres para o nome é 130.',
-                'nome.min'          => 'O mínimo de caracteres para o nome é 3.',
-                'cpf.required'      => 'O CPF é obrigatório.',
-                'cpf.max'           => 'O máximo de caracteres para o CPF é 14.',
-                'telefone.required' => 'O telefone é obrigatório.',
-                'telefone.max'      => 'O máximo de caracteres para o telefone é 20.',
-                'imagem.image'      => 'Deve ser enviado um arquivo de imagem válido.',
-                'imagem.mimes'      => 'A imagem deve ser da extensão PNG, JPEG ou JPG.',
-            ]
-        );
+        $cliente = Cliente::findOrFail($id);
+
+        $this->validateForm($request);
 
         $data = $request->all();
 
         $imagem = $request->file('imagem');
         if ($imagem) {
+            // Troca de foto: apaga a antiga do disco para não deixar arquivo órfão.
+            if ($cliente->imagem && Storage::disk('public')->exists($cliente->imagem)) {
+                Storage::disk('public')->delete($cliente->imagem);
+            }
+
             $nome_arquivo = date('YmdHis') . '.' . $imagem->getClientOriginalExtension();
             $diretorio = 'imagem/cliente/';
 
@@ -102,17 +97,22 @@ class ClienteController extends Controller
             $data['imagem'] = $diretorio . $nome_arquivo;
         }
 
-        Cliente::updateOrCreate(
-            ['id' => $id],
-            $data
-        );
+        $cliente->update($data);
 
-        return redirect('cliente');
+        return redirect('cliente')->with('success', 'Registro atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
         $cliente = Cliente::findOrFail($id);
+
+        // Não permite remover cliente que já tem agendamentos (evita apagar dados em cascata).
+        if ($cliente->agendamentos()->count() > 0) {
+            return redirect('cliente')->with(
+                'error',
+                "Não é possível remover o cliente {$cliente->nome}, pois existem agendamentos associados a ele!"
+            );
+        }
 
         if ($cliente->imagem && Storage::disk('public')->exists($cliente->imagem)) {
             Storage::disk('public')->delete($cliente->imagem);
@@ -120,7 +120,7 @@ class ClienteController extends Controller
 
         $cliente->delete();
 
-        return redirect('cliente');
+        return redirect('cliente')->with('success', 'Registro removido com sucesso!');
     }
 
     public function search(Request $request)

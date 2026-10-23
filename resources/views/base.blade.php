@@ -51,6 +51,15 @@
     </nav>
 
     <main class="container">
+        {{-- Mensagens de retorno enviadas pelos controllers com redirect()->with('success' | 'error', ...).
+             Ficam aqui no layout para aparecerem em todas as telas, sem repetir em cada listagem. --}}
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
         {{-- Este yield recebe o conteúdo específico de cada página do sistema. --}}
         @yield('conteudo')
     </main>

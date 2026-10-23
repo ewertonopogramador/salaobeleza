@@ -67,9 +67,21 @@
 
         {{-- Campo para entrada do ID do Usuário associado ao Profissional --}}
         <div class="col-md-6 mb-3">
-            <label class="form-label">ID do Usuário</label>
-            <input type="number" name="user_id" class="form-control"
-                value="{{ old('user_id', $dado->user_id ?? '') }}" required>
+            <label class="form-label">Usuário</label>
+            {{-- SELECT do relacionamento 1:1: o usuário vê o NOME, mas o valor enviado ao
+                 servidor é o ID (value="{{ $id }}"), que vai para a coluna user_id --}}
+            <select name="user_id" class="form-select">
+                {{-- Opção vazia: o usuário é opcional no banco (coluna nullable) --}}
+                <option value="">-- Nenhum --</option>
+                {{-- $usuarios vem do controller no formato [id => nome] --}}
+                @foreach ($usuarios as $id => $nome)
+                {{-- selected marca a opção correta: old() mantém a escolha se a validação
+                     falhar; senão usa o user_id já salvo (na edição) --}}
+                <option value="{{ $id }}" {{ old('user_id', $dado->user_id ?? '') == $id ? 'selected' : '' }}>
+                    {{ $nome }}
+                </option>
+                @endforeach
+            </select>
         </div>
 
         {{-- Botões para submissão do formulário ou retorno à lista --}}

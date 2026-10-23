@@ -48,6 +48,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Especialidade</th>
                 <th scope="col">Telefone</th>
+                <th scope="col">Usuário</th>
                 <th scope="col" class="text-center">Ações</th>
             </tr>
         </thead>
@@ -72,6 +73,11 @@
                 <td>{{ $item->especialidade }}</td>
                 <td>{{ $item->telefone }}</td>
 
+                {{-- $item->user usa o relacionamento belongsTo definido no Model Profissional.
+                     Mostra o NOME do usuário; o "?->" evita erro quando user_id é nulo
+                     e o "??" exibe um traço nesse caso --}}
+                <td>{{ $item->user?->name ?? '-' }}</td>
+
                 {{-- Coluna unificada para as Ações (Editar e Deletar) --}}
                 <td>
                     <div class="d-flex gap-2">
@@ -92,7 +98,7 @@
             @empty
             {{-- Exibido caso não haja nenhum profissional cadastrado ou encontrado na busca --}}
             <tr>
-                <td colspan="6" class="text-center">Nenhum profissional encontrado.</td>
+                <td colspan="7" class="text-center">Nenhum profissional encontrado.</td>
             </tr>
             @endforelse
         </tbody>

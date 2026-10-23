@@ -37,14 +37,16 @@
         {{-- Campo para entrada do Preço do Produto --}}
         <div class="col-md-6 mb-3">
             <label class="form-label">Preço</label>
-            <input type="number" name="preco" class="form-control"
+            {{-- step="0.01" permite centavos (ex.: 19.90); sem ele o navegador só aceita números inteiros --}}
+            <input type="number" name="preco" class="form-control" step="0.01" min="0"
                 value="{{ old('preco', $dado->preco ?? '') }}" required>
         </div>
 
         {{-- Campo para entrada do Estoque do Produto --}}
         <div class="col-md-6 mb-3">
             <label class="form-label">Estoque</label>
-            <input type="number" name="estoque" class="form-control" step="0.01"
+            {{-- Estoque é quantidade inteira (a validação exige integer), por isso step="1" --}}
+            <input type="number" name="estoque" class="form-control" step="1" min="0"
                 value="{{ old('estoque', $dado->estoque ?? '') }}" required>
         </div>
 

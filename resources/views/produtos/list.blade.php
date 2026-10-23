@@ -33,6 +33,8 @@
                 <button type="submit" class="btn btn-primary">Buscar</button>
                 {{-- Direciona para a rota de criação de novo produto --}}
                 <a class="btn btn-success" href="{{ url('produto/create') }}">Novo Produto</a>
+                {{-- Abre o gráfico de barras com o estoque dos produtos --}}
+                <a class="btn btn-outline-info" href="{{ route('produto.chart') }}">Gráfico</a>
             </div>
         </div>
     </form>

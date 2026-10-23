@@ -6,12 +6,7 @@
     <div class="container mt-4">
         <h1 class="mb-4">Lista de Serviços</h1>
 
-        {{-- Exibe mensagem temporária de sucesso vinda da Session (ex: "Serviço cadastrado com sucesso!") --}}
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        {{-- A mensagem de sucesso/erro agora é exibida pelo layout base.blade.php --}}
 
         {{-- Botão para direcionar ao formulário de cadastro de novo serviço --}}
         <a href="{{ url('servico/create') }}" class="btn btn-primary mb-3">Novo Serviço</a>

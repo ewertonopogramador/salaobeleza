@@ -6,12 +6,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">Lista de Serviços</h1>
 
-    {{-- Mensagem de sucesso do cadastro/edição. --}}
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
+    {{-- A mensagem de sucesso/erro agora é exibida pelo layout base.blade.php --}}
 
     <div class="row g-2 mb-3">
         <div class="col-md-8">
@@ -23,6 +18,8 @@
         </div>
         <div class="col-md-4 text-md-end">
             <a href="{{ url('servico/create') }}" class="btn btn-primary">Novo Serviço</a>
+            {{-- Botão do relatório em PDF (abre em nova aba) --}}
+            <a href="{{ route('servico.report') }}" target="_blank" class="btn btn-outline-danger">Gerar PDF</a>
         </div>
     </div>
 
